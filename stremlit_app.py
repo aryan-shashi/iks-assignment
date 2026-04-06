@@ -1,38 +1,84 @@
 import streamlit as st
 
+st.set_page_config(page_title="Ayurvedic Lifestyle Optimizer", layout="centered")
+
 st.title("🌿 Ayurvedic Lifestyle Optimizer")
+st.write("Evaluate your daily routine using Ayurveda (Dinacharya principles)")
 
-st.write("Analyze your daily habits based on Ayurveda (Dinacharya)")
+# --- INPUTS ---
+st.header("🧍 Lifestyle Inputs")
 
-# Inputs
 wake_time = st.slider("Wake-up Time (hour)", 4, 10, 7)
 sleep_time = st.slider("Sleep Time (hour)", 20, 2, 23)
 screen_time = st.slider("Screen Time (hours/day)", 0, 12, 5)
+work_hours = st.slider("Work/Study Hours", 0, 12, 6)
+stress = st.slider("Stress Level (1-10)", 1, 10, 5)
+
+st.header("🧘 Health & Ayurveda Inputs")
+
 activity = st.slider("Physical Activity (minutes/day)", 0, 120, 30)
-meals = st.selectbox("Do you eat meals at regular times?", ["Yes", "No"])
+meditation = st.slider("Meditation/Yoga (minutes/day)", 0, 60, 10)
+water = st.slider("Water Intake (glasses/day)", 0, 15, 6)
+meals = st.selectbox("Regular Meal Timing?", ["Yes", "No"])
+junk = st.selectbox("Junk Food Frequency", ["Low", "Moderate", "High"])
+nature = st.slider("Nature Exposure (minutes/day)", 0, 120, 20)
+digestion = st.selectbox("Digestion Quality", ["Good", "Average", "Poor"])
 energy = st.slider("Energy Level (1-10)", 1, 10, 5)
 
-# Scoring
+# --- SCORING ---
 score = 0
 
+# Sleep & wake
 if wake_time <= 7:
-    score += 15
+    score += 10
 
 if sleep_time <= 23 or sleep_time <= 2:
-    score += 15
+    score += 10
 
+# Screen time
 if screen_time <= 4:
-    score += 15
+    score += 10
 
+# Activity
 if activity >= 30:
-    score += 20
-
-if meals == "Yes":
     score += 15
 
-score += energy * 2
+# Meditation
+if meditation >= 10:
+    score += 10
 
-# Classification
+# Water
+if water >= 7:
+    score += 10
+
+# Meals
+if meals == "Yes":
+    score += 10
+
+# Junk food
+if junk == "Low":
+    score += 10
+elif junk == "Moderate":
+    score += 5
+
+# Nature exposure
+if nature >= 20:
+    score += 5
+
+# Digestion
+if digestion == "Good":
+    score += 5
+
+# Energy
+score += energy * 0.5
+
+# Stress (inverse scoring)
+if stress <= 4:
+    score += 10
+elif stress <= 7:
+    score += 5
+
+# --- CLASSIFICATION ---
 if score >= 80:
     category = "Healthy ✅"
 elif score >= 50:
@@ -40,27 +86,47 @@ elif score >= 50:
 else:
     category = "Needs Improvement ❌"
 
-# Output
-st.subheader(f"Your Score: {score}/100")
-st.subheader(f"Lifestyle Category: {category}")
+# --- OUTPUT ---
+st.subheader(f"📊 Your Score: {int(score)}/100")
+st.progress(int(score))
 
-# Suggestions
-st.write("### 🧘 Ayurvedic Suggestions:")
+st.subheader(f"🌟 Lifestyle Category: {category}")
+
+# --- SUGGESTIONS ---
+st.write("### 🧘 Personalized Ayurvedic Suggestions:")
 
 if wake_time > 7:
-    st.write("- Try waking up earlier (Brahma Muhurta)")
+    st.write("- Wake up earlier (Brahma Muhurta)")
 
 if sleep_time > 23:
-    st.write("- Sleep before 11 PM for better recovery")
+    st.write("- Sleep before 11 PM")
 
 if screen_time > 4:
-    st.write("- Reduce screen time to calm the mind")
+    st.write("- Reduce screen exposure")
 
 if activity < 30:
-    st.write("- Include yoga or walking daily")
+    st.write("- Add yoga or walking")
+
+if meditation < 10:
+    st.write("- Practice meditation daily")
+
+if water < 7:
+    st.write("- Increase water intake")
 
 if meals == "No":
-    st.write("- Maintain regular meal timings")
+    st.write("- Maintain fixed meal timings")
+
+if junk == "High":
+    st.write("- Reduce junk food")
+
+if nature < 20:
+    st.write("- Spend time outdoors")
+
+if digestion == "Poor":
+    st.write("- Improve diet for better digestion")
+
+if stress > 6:
+    st.write("- Practice breathing exercises (Pranayama)")
 
 if energy < 5:
-    st.write("- Practice meditation and balanced diet")
+    st.write("- Improve sleep and nutrition")
