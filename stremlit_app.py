@@ -21,7 +21,7 @@ st.header("Health & Ayurveda Inputs")
 
 activity = st.slider("Physical Activity (minutes/day)", 0, 120, 30)
 meditation = st.slider("Meditation/Yoga (minutes/day)", 0, 60, 10)
-water = st.slider("Water Intake (glasses/day)", 0, 15, 6)
+water = st.slider("Water Intake (glasses(250ml/)/day)", 0, 15, 6)
 meals = st.selectbox("Regular Meal Timing?", ["Yes", "No"])
 junk = st.selectbox("Junk Food Frequency", ["Low", "Moderate", "High"])
 nature = st.slider("Nature Exposure (minutes/day)", 0, 120, 20)
