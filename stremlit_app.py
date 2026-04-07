@@ -3,16 +3,7 @@ import streamlit as st
 st.set_page_config(page_title="Ayurvedic Lifestyle Optimizer", layout="centered")
 
 # --- SKY BLUE BACKGROUND ---
-st.markdown(
-    """
-    <style>
-    .stApp {
-        background-color: #87CEEB;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+
 
 st.title("Ayurvedic Lifestyle Optimizer")
 st.write("Evaluate your daily routine using Ayurveda (Dinacharya principles)")
